@@ -4,8 +4,7 @@ const bodyParser = require("body-parser");
 const createError = require("http-errors");
 const path = require("path");
 // Custom Utils:
-// const { connectMongoDB } = require("./database/mongoose");
-// const { reqLogDev, reqLogDevErrOnly } = require("./utils/requestLogger");
+const { reqLogDev } = require("./utils/requestLoggers");
 // Environment Variable using .env:
 const port = process.env.BE_PORT || 7070;
 // Init App:
@@ -15,7 +14,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-// app.use(reqLogDev);
+app.use(reqLogDev);
 // Default Router:
 app.get("/", (req, res) => {
   console.log("> Default Route!");
@@ -24,6 +23,9 @@ app.get("/", (req, res) => {
     success: true,
     message: "Default Branch!",
   });
+});
+app.get("/demo", (req, res) => {
+  return res.redirect("https://youtu.be/dQw4w9WgXcQ?si=fBLGtZXealbWldYw");
 });
 // API Routers:
 // const v1API = require("./api/v1/routers/index");
@@ -44,8 +46,6 @@ app.use((err, req, res, next) => {
     message: err.message || "",
   });
 });
-// Connect Database:
-// connectMongoDB();
 // Init Server:
 app.listen(port, () => {
   console.log(`> Website running at http://localhost:${port}`);
