@@ -2,10 +2,17 @@ const router = require("express").Router();
 const createError = require("http-errors");
 // Custom Utils:
 // Custom Middlewares:
+const {
+  createShortenUrl,
+  getAllUrls,
+  getUrlInfo,
+  deleteUrl,
+} = require("./UrlsMiddleware");
 // Urls Routers:
 //
-// router.route("/").post(createPricing).get(getAllPricings);
-// router.route("/pricing/:pricingId").get(getPricingById);
+router.route("/").post(createShortenUrl).get(getAllUrls);
+//
+router.route("/:shortenId").get(getUrlInfo).delete(deleteUrl);
 // Urls Error Handling:
 router
   .use((req, res, next) => {

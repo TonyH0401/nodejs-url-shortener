@@ -1,0 +1,2 @@
+- Installing mongoose using "npm i mongoose" works normally (although with some warnings, it works)
+- Prefer using "npm i mongoose@8.0.0" (although with some warnings, it also works)

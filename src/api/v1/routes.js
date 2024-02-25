@@ -1,8 +1,10 @@
 const router = require("express").Router();
 // Custom Utils:
 // Custom Middlewares:
+// Connect Database:
+const sqliteDb = require("../../database/sqlite");
 // Urls Router: /api/v1/urls/...
-// const PricingsRouterV2 = require("./PricingsV2/PricingsRouterV2");
-// router.use("/pricings", PricingsRouterV2);
+const UrlsRouter = require("./Urls/UrlsRouter");
+router.use("/urls", UrlsRouter);
 // Exports:
 module.exports = router;

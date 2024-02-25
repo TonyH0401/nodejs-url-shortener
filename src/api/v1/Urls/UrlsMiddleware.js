@@ -2,67 +2,118 @@ const createError = require("http-errors");
 // Custom Utils:
 // Custom Middlewares:
 // Import Models:
-// Create New Pricing:
-module.exports.createPricing = async (req, res, next) => {
-  const { pricingName, pricingValue, benefitsDescription } = req.body;
-  try {
-    let pricingNew = new PricingsModelV2({
-      pricingName: pricingName || "",
-      pricingValue: !pricingValue ? 0 : pricingValue < 0 ? 0 : pricingValue,
-      benefitsDescription: benefitsDescription || [],
-    });
-    const pricingCreated = await pricingNew.save();
-    return res.status(200).json({
-      code: 1,
-      success: true,
-      message: "New Pricing Created!",
-      data: pricingCreated,
-    });
-  } catch (error) {
-    return next(createError(500, error.message));
-  }
+const UrlsModel = require("./UrlsModel");
+// Create Shorten Url:
+module.exports.createShortenUrl = async (req, res, next) => {
+  const { originalUrl } = req.body;
+  // I may cast a try...catch block outside and separate from the callback
+  // to prevent header being sent twice, more in the notes
+  const shortenUrl = Math.random().toString(36).substring(7);
+  const sql = `INSERT INTO urls (original, shorten) VALUES (?, ?)`;
+  UrlsModel.run(sql, [originalUrl, shortenUrl], (err) => {
+    if (err) {
+      return res.status(500).json({
+        code: 0,
+        success: false,
+        message: err.message,
+      });
+    } else {
+      return res.status(200).json({
+        code: 1,
+        success: true,
+        data: {
+          originalUrl: originalUrl,
+          shortenUrlId: shortenUrl,
+        },
+      });
+    }
+  });
 };
-// Get All Pricings:
-module.exports.getAllPricings = async (req, res, next) => {
-  try {
-    const allPricings = await PricingsModelV2.find({});
-    return res.status(200).json({
-      code: 1,
-      success: true,
-      message: "All Pricings!",
-      counter: allPricings.length,
-      data: allPricings,
-    });
-  } catch (error) {
-    return next(createError(500, error.message));
-  }
+// Get All Urls:
+module.exports.getAllUrls = async (req, res, next) => {
+  const sql = `SELECT * FROM urls`;
+  UrlsModel.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({
+        code: 0,
+        success: false,
+        message: err.message,
+      });
+    } else {
+      return res.status(200).json({
+        code: 1,
+        success: true,
+        total: rows.length,
+        data: rows,
+      });
+    }
+  });
 };
-// Get Pricing By Id:
-module.exports.getPricingById = async (req, res, next) => {
-  const { pricingId } = req.params;
-  try {
-    const pricingExist = await PricingsModelV2.findById(pricingId);
-    if (!pricingExist)
-      return next(createError(404, `PricingId ${pricingId} Not Found!`));
-    return res.status(200).json({
-      code: 1,
-      success: true,
-      message: `PricingId ${pricingId} Found!`,
-      data: pricingExist,
-    });
-  } catch (error) {
-    return next(createError(500, error.message));
-  }
+// Get Url Information:
+module.exports.getUrlInfo = async (req, res, next) => {
+  const { shortenId } = req.params;
+  const sql = `SELECT * FROM urls WHERE shorten = ?`;
+  UrlsModel.get(sql, [shortenId], (err, row) => {
+    if (err) {
+      return res.status(500).json({
+        code: 0,
+        success: false,
+        message: err.message,
+      });
+    } else {
+      if (!row) {
+        return res.status(404).json({
+          code: 0,
+          success: false,
+          message: `${shortenId} Not Found!`,
+        });
+      } else {
+        return res.status(200).json({
+          code: 1,
+          success: true,
+          data: row,
+        });
+      }
+    }
+  });
 };
-// Update Pricing By Id:
-module.exports.updatePricingById = async (req, res, next) => {
-  const { pricingId } = req.params;
-  try {
-    const pricingExist = await PricingsModelV2.findById(pricingId);
-    if (!pricingExist)
-      return next(createError(404, `PricingId ${pricingId} Not Found!`));
-    
-  } catch (error) {
-    return next(createError(500, error.message));
-  }
+// Delete A Url:
+module.exports.deleteUrl = async (req, res, next) => {
+  const { shortenId } = req.params;
+  const checkExistSql = `SELECT * FROM urls WHERE shorten = ?`;
+  UrlsModel.get(checkExistSql, [shortenId], (err, row) => {
+    if (err) {
+      return res.status(500).json({
+        code: 0,
+        success: false,
+        message: err.message,
+      });
+    } else {
+      if (!row) {
+        return res.status(404).json({
+          code: 0,
+          success: false,
+          message: `${shortenId} Not Found!`,
+        });
+      } else {
+        const deleteSql = `DELETE FROM urls WHERE shorten = ?`;
+        UrlsModel.run(deleteSql, [shortenId], (err) => {
+          if (err) {
+            return res.status(500).json({
+              code: 0,
+              success: false,
+              message: err.message,
+            });
+          } else {
+            return res.status(200).json({
+              code: 1,
+              success: true,
+              message: `${shortenId} was deleted!`,
+              data: row,
+            });
+          }
+        });
+      }
+    }
+  });
 };

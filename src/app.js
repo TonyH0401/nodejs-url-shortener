@@ -24,16 +24,11 @@ app.get("/", (req, res) => {
     message: "Default Branch!",
   });
 });
-app.get("/demo", (req, res) => {
-  return res.redirect("https://youtu.be/dQw4w9WgXcQ?si=fBLGtZXealbWldYw");
-});
 // API Routers:
-// const v1API = require("./api/v1/routers/index");
-// app.use("/api/v1", v1API);
+const v1API = require("./api/v1/routes");
+app.use("/api/v1", v1API);
 // Default Error Handling:
 app.use((req, res, next) => {
-  // create an error 404 with message "This directory does not exist!" using createError
-  // pass on to the next middleware an error using next()
   next(createError(404, "This directory does not exist!"));
 });
 app.use((err, req, res, next) => {
