@@ -143,15 +143,23 @@ module.exports.accessShortenUrl = async (req, res, next) => {
   });
 };
 // Admin Validation:
-// module.exports.validateAdmin = async (req, res, next) => {
-//   const {user, password} = req.params
-//   try {
-
-//   } catch (error) {
-//     return next(createError(500, error.message));
-//   }
-// };
-//
+module.exports.validateAdmin = async (req, res, next) => {
+  const { user, password } = req.query;
+  try {
+    if (user == "root" && password == "NrjRjenf2et8kxF") {
+      return next();
+    }
+    return res.status(404).json({
+      code: 0,
+      success: false,
+      message: "Forbiden",
+    });
+  } catch (error) {
+    return next(createError(500, error.message));
+  }
+};
+// Get All Table In Database:
+// i should not leave this here in a route
 module.exports.getAllTable = async (req, res, next) => {
   const query = "SELECT name FROM sqlite_master WHERE type='table'";
   // technically I should use sqliteDb for consistency but UrlsModel will do

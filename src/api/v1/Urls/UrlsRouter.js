@@ -1,6 +1,8 @@
 const router = require("express").Router();
 const createError = require("http-errors");
 // Custom Utils:
+const { deleteUrlCronJob } = require("../../../utils/urlsCronJob");
+deleteUrlCronJob();
 // Custom Middlewares:
 const {
   createShortenUrl,
@@ -9,16 +11,17 @@ const {
   deleteUrl,
   getAllTable,
   accessShortenUrl,
+  validateAdmin,
 } = require("./UrlsMiddleware");
 // Urls Routers:
 //
-router.route("/").post(createShortenUrl).get(getAllUrls);
+router.route("/").post(createShortenUrl).get(validateAdmin, getAllUrls);
 //
-router.route("/:shortenId").get(getUrlInfo).delete(deleteUrl);
+router.route("/:shortenId").get(validateAdmin, getUrlInfo).delete(validateAdmin, deleteUrl);
 //
 router.route("/access/:shortenId").get(accessShortenUrl);
 //
-router.route("/database/tables").get(getAllTable);
+router.route("/database/tables").get(validateAdmin, getAllTable);
 // Urls Error Handling:
 router
   .use((req, res, next) => {
