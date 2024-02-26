@@ -6,3 +6,5 @@ so everytime it will run to /:id but with "demo" as the value. But if you change
 both /demo and /:id separately. For example, "localhost:8080/api/v1/urls/url/demo" this will not run to /demo, it will run to
 /:id but with params value being "demo". Be carefule with anything params. If i have /:id, when I call /demo, /:id will be called
 but if i call /demo/demo then /demo/demo will be called not /:id
+- In a video, you don't need to create .db by hand, you can just do it in code but in the other video, you need to create .db 
+by hand. Stated in https://www.sqlitetutorial.net/sqlite-nodejs/connect/

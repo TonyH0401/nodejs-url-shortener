@@ -1,9 +1,10 @@
 const sqlite3 = require("sqlite3").verbose();
-const db = new sqlite3.Database(":memory:", (err) => {
+const dbName = "./src/sqliteStorage/urls.db";
+const db = new sqlite3.Database(dbName, (err) => {
   if (err) {
     console.log(err.message);
   } else {
-    console.log("> Connection with in-memory SQLite has been established");
+    console.log("> Connection with SQLite has been established");
   }
 });
 

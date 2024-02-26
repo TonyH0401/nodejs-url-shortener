@@ -9,7 +9,7 @@ const UrlsModel = sqliteDb.run(
     if (err) {
       console.log(err.message);
     } else {
-      console.log("created table urls");
+      console.log("urls table existed or created table urls");
     }
   }
 );
