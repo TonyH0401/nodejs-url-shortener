@@ -7,7 +7,7 @@ function deleteUrlCronJob() {
     try {
       // Calculate the timestamp for 5 minutes ago
       const tenMinutesAgo = new Date();
-      tenMinutesAgo.setMinutes(tenMinutesAgo.getMinutes() - 5);
+      tenMinutesAgo.setMinutes(tenMinutesAgo.getMinutes() - 30);
       const sqlFormattedDate = tenMinutesAgo
         .toISOString()
         .slice(0, 19)
