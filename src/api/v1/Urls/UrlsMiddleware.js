@@ -23,7 +23,7 @@ module.exports.createShortenUrl = async (req, res, next) => {
         success: true,
         data: {
           originalUrl: originalUrl,
-          shortenUrlId: shortenUrl,
+          shortenUrlId: req.headers.host + "/api/v1/urls/access/" + shortenUrl,
         },
       });
     }
@@ -114,6 +114,61 @@ module.exports.deleteUrl = async (req, res, next) => {
           }
         });
       }
+    }
+  });
+};
+// Access Shorten Url:
+module.exports.accessShortenUrl = async (req, res, next) => {
+  const { shortenId } = req.params;
+  const sql = `SELECT original FROM urls WHERE shorten = ?`;
+  UrlsModel.get(sql, [shortenId], (err, row) => {
+    if (err) {
+      return res.status(500).json({
+        code: 0,
+        success: false,
+        message: err.message,
+      });
+    } else {
+      if (!row) {
+        return res.status(404).json({
+          code: 0,
+          success: false,
+          message: "Link Not Found!",
+        });
+      } else {
+        const original = row.original;
+        return res.redirect(original);
+      }
+    }
+  });
+};
+// Admin Validation:
+// module.exports.validateAdmin = async (req, res, next) => {
+//   const {user, password} = req.params
+//   try {
+
+//   } catch (error) {
+//     return next(createError(500, error.message));
+//   }
+// };
+//
+module.exports.getAllTable = async (req, res, next) => {
+  const query = "SELECT name FROM sqlite_master WHERE type='table'";
+  // technically I should use sqliteDb for consistency but UrlsModel will do
+  UrlsModel.all(query, [], (err, tables) => {
+    if (err) {
+      return res.status(500).json({
+        code: 0,
+        success: false,
+        message: err.message,
+      });
+    } else {
+      return res.status(200).json({
+        code: 1,
+        success: true,
+        total: tables.length,
+        tables: tables.map((table) => table.name),
+      });
     }
   });
 };

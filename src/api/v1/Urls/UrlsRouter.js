@@ -7,12 +7,18 @@ const {
   getAllUrls,
   getUrlInfo,
   deleteUrl,
+  getAllTable,
+  accessShortenUrl,
 } = require("./UrlsMiddleware");
 // Urls Routers:
 //
 router.route("/").post(createShortenUrl).get(getAllUrls);
 //
 router.route("/:shortenId").get(getUrlInfo).delete(deleteUrl);
+//
+router.route("/access/:shortenId").get(accessShortenUrl);
+//
+router.route("/database/tables").get(getAllTable);
 // Urls Error Handling:
 router
   .use((req, res, next) => {
