@@ -20,6 +20,13 @@ npm i
 npm start
 ```
 
+## Environment Variables:
+
+```sh
+BE_PORT=""
+```
+
+
 ## Command
 
 Create Shorten URL:
