@@ -1,0 +1,494 @@
+{
+	"info": {
+		"_postman_id": "7d8c470c-fea0-48f7-82a9-4946079f0060",
+		"name": "Urls Shortener - APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23243291"
+	},
+	"item": [
+		{
+			"name": "Deployed",
+			"item": [
+				{
+					"name": "Create Shorten Url",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"originalUrl\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://nodejs-url-shortener-api.onrender.com/api/v1/urls",
+							"protocol": "https",
+							"host": [
+								"nodejs-url-shortener-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"urls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Urls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://nodejs-url-shortener-api.onrender.com/api/v1/urls?user=root&password=NrjRjenf2et8kxF",
+							"protocol": "https",
+							"host": [
+								"nodejs-url-shortener-api",
+								"onrender",
+								"com"
+							],
+							"path": [
+								"api",
+								"v1",
+								"urls"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "root"
+								},
+								{
+									"key": "password",
+									"value": "NrjRjenf2et8kxF"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Developing",
+			"item": [
+				{
+					"name": "Create Shorten Url",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"originalUrl\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/api/v1/urls",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"urls"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Urls",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/urls?user=root&password=NrjRjenf2et8kxF",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"urls"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "root"
+								},
+								{
+									"key": "password",
+									"value": "NrjRjenf2et8kxF"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tables",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/urls/database/tables?user=root&password=NrjRjenf2et8kxF",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"urls",
+								"database",
+								"tables"
+							],
+							"query": [
+								{
+									"key": "user",
+									"value": "root"
+								},
+								{
+									"key": "password",
+									"value": "NrjRjenf2et8kxF"
+								}
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/urls/get-db-tables",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"urls",
+										"get-db-tables"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "71"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"47-tkfm/qnWOBN7M8qLGJ4xpkH8XN4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Feb 2024 18:05:56 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1,\n    \"success\": true,\n    \"total\": 2,\n    \"tables\": [\n        \"urls\",\n        \"sqlite_sequence\"\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "Get Url Information",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/urls/1enxud",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"urls",
+								"1enxud"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/urls/6fnke",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"urls",
+										"6fnke"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "148"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"94-8K3Bm77MQgFs7Tc2Hr902qH68xU\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Feb 2024 13:57:52 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1,\n    \"success\": true,\n    \"data\": {\n        \"id\": 1,\n        \"original\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\n        \"shorten\": \"6fnke\",\n        \"created\": \"2024-02-25 13:56:22\"\n    }\n}"
+						},
+						{
+							"name": "failed",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/urls/6fnkeaaa",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"urls",
+										"6fnkeaaa"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "58"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"3a-zG7Ot37ikpZaxK8kjhwfmYMM/N4\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Feb 2024 13:58:05 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 0,\n    \"success\": false,\n    \"message\": \"6fnkeaaa Not Found!\"\n}"
+						}
+					]
+				},
+				{
+					"name": "Delete Url",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/api/v1/urls/jczm9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"urls",
+								"jczm9"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/urls/yvgau",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"urls",
+										"yvgau"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "179"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"b3-vPrsqOscHyGOm/Ry2nVKh0d2YBw\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Feb 2024 16:33:59 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 1,\n    \"success\": true,\n    \"message\": \"yvgau was deleted!\",\n    \"data\": {\n        \"id\": 2,\n        \"original\": \"https://www.youtube.com/watch?v=dQw4w9WgXcQ\",\n        \"shorten\": \"yvgau\",\n        \"created\": \"2024-02-25 16:33:39\"\n    }\n}"
+						},
+						{
+							"name": "failed",
+							"originalRequest": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "localhost:8080/api/v1/urls/yvgau",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"v1",
+										"urls",
+										"yvgau"
+									]
+								}
+							},
+							"status": "Not Found",
+							"code": 404,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Powered-By",
+									"value": "Express"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json; charset=utf-8"
+								},
+								{
+									"key": "Content-Length",
+									"value": "55"
+								},
+								{
+									"key": "ETag",
+									"value": "W/\"37-eZtzOK6pReL44di2qAOwyZyywFQ\""
+								},
+								{
+									"key": "Date",
+									"value": "Sun, 25 Feb 2024 16:36:11 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "keep-alive"
+								},
+								{
+									"key": "Keep-Alive",
+									"value": "timeout=5"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"code\": 0,\n    \"success\": false,\n    \"message\": \"yvgau Not Found!\"\n}"
+						}
+					]
+				}
+			]
+		}
+	]
+}
